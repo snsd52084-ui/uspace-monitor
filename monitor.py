@@ -2,7 +2,7 @@ import os
 import re
 import requests
 
-URL = "https://pass.uspace.city/rental-space/8e4a74d5"
+URL = "https://pass.uspace.city/b/823ae623"
 
 headers = {
     "User-Agent": "Mozilla/5.0"
