@@ -1,7 +1,5 @@
 name: USPACE Monitor
 
-name: USPACE Monitor
-
 on:
   schedule:
     - cron: "*/5 * * * * "
