@@ -22,7 +22,7 @@ if not match:
 count = int(match.group(1))
 print(f"目前剩餘車位：{count}")
 
-if count <= 29:
+if count <= 60:
     webhook = os.environ["DISCORD_WEBHOOK"]
 
     requests.post(
@@ -30,9 +30,9 @@ if count <= 29:
         json={
             "content": f"🚨 USPACE 士林商城(B1~B2) 剩餘 {count} 個車位！"
         },
-        timeout=30
+        timeout=60
     )
 
     print("Discord 通知已送出")
 else:
-    print("尚未低於 29 個，不通知")
+    print("尚未低於 60 個，不通知")
