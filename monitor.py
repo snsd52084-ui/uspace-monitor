@@ -13,12 +13,12 @@ r.raise_for_status()
 
 html = r.text
 
+print(html[:1000])   
+
 match = re.search(r"同類型車位僅剩\s*(\d+)\s*個", html)
 
 if not match:
-    print("找不到剩餘車位數")
-    exit()
-
+    raise Exception("找不到剩餘車位數")
 count = int(match.group(1))
 print(f"目前剩餘車位：{count}")
 
