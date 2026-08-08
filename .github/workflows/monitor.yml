@@ -1,8 +1,8 @@
-name: USPACE Monitor
+name: name: USPACE Monitor
 
 on:
   schedule:
-    - cron: "*/10 * * * *"
+    - cron: "3-59/5 * * * *"
   workflow_dispatch:
 
 permissions:
@@ -17,11 +17,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
           persist-credentials: true
+          fetch-depth: 0
 
-      - uses: actions/setup-python@v5
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
@@ -35,14 +38,18 @@ jobs:
         run: |
           python monitor.py
 
-      - name: Commit last_count
+      - name: Save last_count
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
           git add last_count.txt
 
-          git diff --cached --quiet || git commit -m "Update last_count"
+          if git diff --cached --quiet; then
+            echo "last_count.txt 沒有變化，不需要 commit"
+            exit 0
+          fi
 
+          git commit -m "Update last_count"
           git pull --rebase origin main
           git push origin main
